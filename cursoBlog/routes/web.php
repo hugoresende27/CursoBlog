@@ -16,9 +16,12 @@ use App\Models\Post;
 
 Route::get('/', function () {
     //return Post::find('my-first-post');
+    //ddd($posts[0]->getContents());
+    
+    $posts = Post::all();
     
     return view('posts', [
-        'posts' => Post::all()
+        'posts' => $posts
     ]);
 });
 
