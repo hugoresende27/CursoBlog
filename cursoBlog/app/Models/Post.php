@@ -64,10 +64,24 @@ class Post
     ////////////////////////////////////// FIND //////////////////////////////////
     public static function find ($slug)
     {
+        return static::all()->firstWhere('slug', $slug);
+
+    }
+    ////////////////////////////////////// FIND OR FAIL //////////////////////////////////
+    public static function findOrFail ($slug)
+    {
+        $post = static::find($slug);
+
+        if (! $post) {
+            throw new ModelNotFoundException();
+        }
+
+        return $post;
+
         //TODOS OS POSTS DEVEM ENCONTRAR UMA SLUG QUE CORRESPONDE AO REQUEST
         // $posts = static::all();
         // dd($posts->firstWhere('slug', $slug));
-        return static::all()->firstWhere('slug', $slug);
+        // return static::all()->firstWhere('slug', $slug);
         // base_path();
         // if (! file_exists( $path = resource_path("/posts/{$slug}.html"))){
            

@@ -88,10 +88,10 @@ Route::get('/', function () {
 
 
 
-Route::get('posts/{post}', function($slug){
+Route::get('/posts/{post}', function($slug){
 
     return view('post', [
-        'post' => Post::find($slug)
+        'post' => Post::findOrFail($slug)
     ]);
 
     //ENCONTRAR UM POST PELO SEU $SLUG E PASSA-LO PARA A VIEW CHAMADA POST
@@ -112,4 +112,5 @@ Route::get('posts/{post}', function($slug){
    
     // return view('post', ['post' => $post]);
 
-})->where('post', '[A-z_\-]+');
+});
+//->where('post', '[A-z_\-]+');
