@@ -79,7 +79,7 @@ Route::get('/', function () {
     //ddd($posts[0]->getContents());
 
     
-     $posts = Post::all();
+    $posts = Post::all();
     
     return view('posts', [
         'posts' => $posts

@@ -26,7 +26,7 @@ class Post
         $this->slug = $slug;
     }
 
-    ////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////// ALL ///////////////////////////////////////
     public static function all ()
     {
        // return File::files(resource_path("/posts/"));
@@ -37,9 +37,10 @@ class Post
     //    }, $files);
 
 
-    $files = File::files(resource_path("posts"));
-    
-    return collect($files)
+    //$files = File::files(resource_path("posts"));
+
+    return cache()->rememberForever('posts.all',  function () {
+        return collect(File::files(resource_path("posts")))
 
                 ->map(function($file){
                     return YamlFrontMatter::parseFile($file);
@@ -53,11 +54,14 @@ class Post
                         $document->date,
                         $document->body(),
                         $document->slug);
+                }) ->sortByDesc('date');
     });
+    
+    
 
     }
 
-    ////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////// FIND //////////////////////////////////
     public static function find ($slug)
     {
         //TODOS OS POSTS DEVEM ENCONTRAR UMA SLUG QUE CORRESPONDE AO REQUEST
