@@ -61,12 +61,12 @@ Route::get('/', function () {
     // }
 
     //ddd($posts);
-    
+
     //ddd($documents);
     //return view ('posts', ['posts' => $documents]);
 
 
-    // $document = YamlFrontMatter::parseFile( 
+    // $document = YamlFrontMatter::parseFile(
     //     resource_path("posts/my-fourth-post.html")
     // );
     //ddd($document->body());
@@ -78,9 +78,9 @@ Route::get('/', function () {
     //return Post::find('my-first-post');
     //ddd($posts[0]->getContents());
 
-    
+
     $posts = Post::all();
-    
+
     return view('posts', [
         'posts' => $posts
     ]);
@@ -88,10 +88,10 @@ Route::get('/', function () {
 
 
 
-Route::get('/posts/{post}', function($slug){
+Route::get('/posts/{post}', function($id){
 
     return view('post', [
-        'post' => Post::findOrFail($slug)
+        'post' => Post::findOrFail($id)
     ]);
 
     //ENCONTRAR UM POST PELO SEU $SLUG E PASSA-LO PARA A VIEW CHAMADA POST
@@ -109,7 +109,7 @@ Route::get('/posts/{post}', function($slug){
     //     // var_dump('file_get_contents');
     //     return file_get_contents($path);
     // });
-   
+
     // return view('post', ['post' => $post]);
 
 });
