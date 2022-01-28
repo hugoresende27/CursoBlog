@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Post;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -46,8 +47,8 @@ class DatabaseSeeder extends Seeder
             'category_id'=>$family->id,//mesmo para id da category
             'title'=>'My Family Post',
             'slug'=>'my-first-post',
-            'excerpt'=>'<p>Zzzzzzzzzzzzxxxx</p>',
-            'body'=>'<p>dsasdfsfgfbdc7yc23n 2937r93rcyeb bhvsfdis f97 fsdhfsdf hfn </p>'
+            'excerpt'=>'<p>The PHP Framework for Web Artisans</p>',
+            'body'=>'<p>Laravel is a web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.</p>'
         ]);
 
         Post::create([
@@ -55,18 +56,11 @@ class DatabaseSeeder extends Seeder
             'category_id'=>$work->id,
             'title'=>'My Work Post',
             'slug'=>'my-second-post',
-            'excerpt'=>"<p>TTTTTTTTTTTTTTTTTTTT</p>",
-            'body'=>'<p>dddddddddddddddddddwwwwwwwwwwwwwdasssdsasdfsfgfbdc7yc23n 2937r93rcyeb bhvsfdis f97 fsdhfsdf hfn </p>'
+            'excerpt'=>"<p>Laravel Partners</p>",
+            'body'=>'<p>Find a Laravel-endorsed development partner to help with your next project. Find an expert based on your needs and reach out to start a conversation. </p>'
         ]);
 
-        Post::create([
-            'user_id'=>$user->id,
-            'category_id'=>$personal->id,
-            'title'=>'My Personal Post',
-            'slug'=>'my-third-post',
-            'excerpt'=>'<p>UUUUUUUUUUUUUUUU</p>',
-            'body'=>'<p>3333333333333333122312312321312312312312313dsasdfsfgfbdc7yc23n 2937r93rcyeb bhvsfdis f97 fsdhfsdf hfn </p>'
-        ]);
+
 
 
     }
