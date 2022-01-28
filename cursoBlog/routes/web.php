@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\Category;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Translation\Dumper\YamlFileDumper;
@@ -18,6 +19,11 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 */
 
 Route::get('/', function () {
+
+//    DB::listen(function ($query){
+//        //Log::info('foo');
+//        logger($query->sql, $query->bindings);
+//    });
 
     //$files = File::files(resource_path("posts"));
     // $posts = [];
@@ -79,19 +85,22 @@ Route::get('/', function () {
     //ddd($posts[0]->getContents());
 
 
-    $posts = Post::all();
-
+//    $posts = Post::all();
+//
+//    return view('posts', [
+//        'posts' => $posts
+//    ]);
     return view('posts', [
-        'posts' => $posts
-    ]);
+         'posts' => Post::with('category')->get()
+     ]);
 });
 
 
 
-Route::get('/posts/{post}', function($id){
+Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$post)->firstOrFail();
 
     return view('post', [
-        'post' => Post::findOrFail($id)
+        'post' => $post
     ]);
 
     //ENCONTRAR UM POST PELO SEU $SLUG E PASSA-LO PARA A VIEW CHAMADA POST
@@ -114,3 +123,9 @@ Route::get('/posts/{post}', function($id){
 
 });
 //->where('post', '[A-z_\-]+');
+
+Route::get('categories/{category:slug}', function (Category $category){
+    return view('posts', [
+        'posts' => $category->posts
+    ]);
+});
