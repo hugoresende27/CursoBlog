@@ -14,6 +14,8 @@ class Post extends Model
     protected $guarded = [];//melhor opção, array vazio, id é AUTO_INCREMENT
     //protected  $fillable =
 
+    protected $with = ['category', 'author'];
+
 ///////////////////////////////////////////////////////////////////
     public function getRouteKeyName()
     {
@@ -28,9 +30,9 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 ////////////////////////////////////////////////////////////////////
-    public function user()
+    public function author() //laravel assume foreignKey author_id
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
 

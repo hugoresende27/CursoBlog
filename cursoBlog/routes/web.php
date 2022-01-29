@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Translation\Dumper\YamlFileDumper;
@@ -19,6 +20,11 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 */
 
 Route::get('/', function () {
+
+    return view('posts', [          //category e author para fazer apenas um query de busca
+        'posts' => Post::latest()->get()//->with('category','author')->get()  //latest('published_at') para mostrar posts ultimo em primeiro
+    ]);                         //protected $with = ['category', 'author']; no models Post vai limitar as querys
+});
 
 //    DB::listen(function ($query){
 //        //Log::info('foo');
@@ -90,10 +96,7 @@ Route::get('/', function () {
 //    return view('posts', [
 //        'posts' => $posts
 //    ]);
-    return view('posts', [
-         'posts' => Post::with('category')->get()
-     ]);
-});
+
 
 
 
@@ -126,6 +129,14 @@ Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$po
 
 Route::get('categories/{category:slug}', function (Category $category){
     return view('posts', [
-        'posts' => $category->posts
+        'posts' => $category->posts//->load(['category', 'author']) //para não fazer várias querys
+        //24QUERIES 24SELECTS 30ms para 4QUERIES 4SELECTS 28ms
+    ]);
+});
+
+Route::get('authors/{author:username}', function (User $author){
+    // dd($author);
+    return view('posts', [
+        'posts' => $author->posts//->load(['category', 'author']) //para não fazer várias querys
     ]);
 });

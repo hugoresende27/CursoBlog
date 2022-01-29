@@ -1,57 +1,16 @@
-
-
 <x-layout>
 
-    @foreach ($posts as $post)
+    @include ('_post-header')
 
-        {{-- @dd($loop) --}}
+    <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
+        {{-- if em baixo para verificar se existem posts, se o array nao tiver elementos dá erro --}}
+    @if ($posts->count())
 
-        <article class="{{ $loop->even ? 'foobar' : ' '}}">
-            <h1>
-                <a href="/posts/{{ $post->slug;  }}">
-
-                    {!!   $post->title; !!}
-                </a>
-            </h1>
-
-            <h2>{{ $post->created_at; }}</h2>
-
-            <p>
-                <a href="/categories/{{ $post->category->slug }}"> {{ $post->category->name }} </a>
-            </p>
-
-            <div>
-                {!!   $post->excerpt; !!}
-            </div>
-
-        </article>
-
-    @endforeach
+         <x-posts-grid :posts="$posts" />
+  
+    @else
+        <p>No posts yet... come back later</p>
+    @endif
+    </main>
 
 </x-layout>
-
-
-
-
-    {{-- <article>
-
-        <h1> <a href="/posts/my-first-post">My First Post</a></h1>
-        <p>PRIMEIRO POST -- Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus nam accusantium consequuntur. Fuga id facilis veniam beatae. Voluptatem expedita ratione quos explicabo accusamus, voluptates omnis voluptate consequatur, eius ea deserunt?</p>
-
-    </article>
-
-    <article>
-
-        <h1> <a  href="/posts/my-second-post">My Second Post</a></h1>
-        <p>SEGUNDO POST -- LLorem, ipsum dolor sit amet consectetur adipisicing elit. Natus nam accusantium consequuntur. Fuga id facilis veniam beatae. Voluptatem expedita ratione quos explicabo accusamus, voluptates omnis voluptate consequatur, eius ea deserunt?</p>
-
-    </article>
-
-    <article>
-
-        <h1> <a  href="/posts/my-third-post">My Third Post</a></h1>
-        <p>TERCEIRO POST -- LLorem, ipsum dolor sit amet consectetur adipisicing elit. Natus nam accusantium consequuntur. Fuga id facilis veniam beatae. Voluptatem expedita ratione quos explicabo accusamus, voluptates omnis voluptate consequatur, eius ea deserunt?</p>
-
-    </article> --}}
-
-
