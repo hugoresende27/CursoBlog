@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             'name'=>'Hugo Resende'
         ]);
 
-        Post::factory(5)->create([
+        Post::factory(10)->create([
             'user_id'=>$user->id    //associar o post feito na factory com o user_id
         ]);
 

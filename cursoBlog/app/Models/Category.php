@@ -12,7 +12,7 @@ class Category extends Model
     public function posts()
     {
         //ligação entre categoria e post hasMany
-        echo "    <a href='/'>Go back</a>";
+        //echo "    <a href='/'>Go back</a>";
         return $this->hasMany(Post::class);
     }
 }

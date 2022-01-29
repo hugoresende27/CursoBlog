@@ -22,8 +22,10 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 Route::get('/', function () {
 
     return view('posts', [          //category e author para fazer apenas um query de busca
-        'posts' => Post::latest()->get()//->with('category','author')->get()  //latest('published_at') para mostrar posts ultimo em primeiro
-    ]);                         //protected $with = ['category', 'author']; no models Post vai limitar as querys
+        'posts' => Post::latest()->get(),//->with('category','author')->get()  //latest('published_at') para mostrar posts ultimo em primeiro
+                          //protected $with = ['category', 'author']; no models Post vai limitar as querys
+        'categories' => Category::all()
+        ]);   
 });
 
 //    DB::listen(function ($query){
@@ -129,8 +131,10 @@ Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$po
 
 Route::get('categories/{category:slug}', function (Category $category){
     return view('posts', [
-        'posts' => $category->posts//->load(['category', 'author']) //para não fazer várias querys
+        'posts' => $category->posts,//->load(['category', 'author']) //para não fazer várias querys
         //24QUERIES 24SELECTS 30ms para 4QUERIES 4SELECTS 28ms
+        'categories' => Category::all(),
+        'currentCategory' => $category
     ]);
 });
 
