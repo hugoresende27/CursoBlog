@@ -26,7 +26,7 @@ Route::get('/', function () {
                           //protected $with = ['category', 'author']; no models Post vai limitar as querys
         'categories' => Category::all()
         ]);   
-});
+})->name('home');
 
 //    DB::listen(function ($query){
 //        //Log::info('foo');
@@ -136,7 +136,7 @@ Route::get('categories/{category:slug}', function (Category $category){
         'categories' => Category::all(),
         'currentCategory' => $category
     ]);
-});
+})->name('category');
 
 Route::get('authors/{author:username}', function (User $author){
     // dd($author);
