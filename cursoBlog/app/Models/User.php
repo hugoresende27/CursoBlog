@@ -17,11 +17,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    //     'username'
+    // ];
+
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,5 +50,17 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+////////////////////// FUNÇÃO SET PASSWORD ATTRIBUTE Mutator/////////////////
+    public function setPasswordAttribute($pass)
+    {
+        $this->attributes['password'] = bcrypt($pass);//"laravelpassword";// 
+    }
+
+////////////////////// FUNÇÃO GET USERNAME ATTRIBUTE Accessor/////////////////
+    public function getUsernameAttribute($username)
+    {
+        return ucwords($username);  //$xavi->username == 'Xavi'
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
@@ -20,6 +21,10 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 |
 */
 
+
+////////    ROUTE PARA REGISTO /////////////////
+Route::get('/register', [RegisterController::class, 'create']);
+Route::post('/register', [RegisterController::class, 'store']);
 
 //vou substituir a route para index pelo controlador PostController
 
