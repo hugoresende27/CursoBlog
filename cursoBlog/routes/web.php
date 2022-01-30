@@ -146,18 +146,19 @@ Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 //->where('post', '[A-z_\-]+');
 
-Route::get('categories/{category:slug}', function (Category $category){
-    return view('posts', [
-        'posts' => $category->posts,//->load(['category', 'author']) //para não fazer várias querys
-        //24QUERIES 24SELECTS 30ms para 4QUERIES 4SELECTS 28ms
-        'categories' => Category::all(),
-        'currentCategory' => $category
-    ]);
-})->name('category');
+// Route::get('categories/{category:slug}', function (Category $category){
+//     return view('posts', [
+//         'posts' => $category->posts,//->load(['category', 'author']) //para não fazer várias querys
+//         //24QUERIES 24SELECTS 30ms para 4QUERIES 4SELECTS 28ms
+//         'categories' => Category::all(),
+//         'currentCategory' => $category
+//     ]);
+// })->name('category');
 
 Route::get('authors/{author:username}', function (User $author){
     // dd($author);
     return view('posts', [
-        'posts' => $author->posts//->load(['category', 'author']) //para não fazer várias querys
+        'posts' => $author->posts,//->load(['category', 'author']) //para não fazer várias querys
+       // 'categories' => Category::all()
     ]);
 });

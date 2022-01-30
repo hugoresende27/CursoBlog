@@ -30,7 +30,19 @@ class Post extends Model
                 ->where('title','like','%'.$search.'%')
                 ->orWhere('body','like','%'.$search.'%'));
 
-           // };
+            $query->when($filters['category'] ?? false, fn ($query, $category) => 
+            //   $query
+            //     ->whereExists(fn($query) => 
+            //         $query->from('categories')
+            //               ->whereColumn ('categories.id', 'posts.category_id')
+            //               ->where('categories.slug', $category)) 
+            //             );
+                $query
+                    ->whereHas('category', fn($query) => 
+                    $query->where('slug', $category)));
+
+           // };//POST Q DEVOLVEM OS QUE TÊM A CATEGORY QUE CORRESPONDE NA SLUG DA CATEGORY
+           //SELECT * FROM `posts` WHERE EXISTS (SELECT * FROM `categories` WHERE `categories`.`id` = 'posts.category_id' and `categories`.`slug` = 'laboriosam-expedita-ipsum-quos-accusantium-qui-quo') ORDER BY `created_at` DESC
                
             
     }
