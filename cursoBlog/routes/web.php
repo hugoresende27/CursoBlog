@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
@@ -23,8 +24,8 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 
 
 ////////    ROUTE PARA REGISTO /////////////////
-Route::get('/register', [RegisterController::class, 'create']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
 //vou substituir a route para index pelo controlador PostController
 
@@ -32,6 +33,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+Route::post('logout', [SessionsController::class, 'destroy']);
 //Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$post)->firstOrFail();
 
     // return view('post', [

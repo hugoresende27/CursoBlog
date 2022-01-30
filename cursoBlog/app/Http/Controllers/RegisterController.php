@@ -31,7 +31,7 @@ class RegisterController extends Controller
         $attributes['password'] = bcrypt($attributes['password']);
 
         //dd('sucess validation succeed');
-        User::create($attributes);
+        //User::create($attributes);
 
         //podia ser feito assim:
         
@@ -40,8 +40,11 @@ class RegisterController extends Controller
         //     'password'=>bcrypt($attributes['password'])
         // ]);
 
-        session()->flash('success','Your account has been created');
+        //session()->flash('success','Your account has been created');
 
-        return redirect('/');
+        //LOG IN DO USER///////////////////////
+        auth()->login(User::create($attributes));
+
+        return redirect('/')->with('success','Your account has been created');
     }
 }
