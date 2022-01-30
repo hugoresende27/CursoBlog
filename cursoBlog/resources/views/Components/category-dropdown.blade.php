@@ -16,7 +16,8 @@
         
 {{-- LINKS --}}
  
-<x-dropdown-item href="/" :active="request()->routeIs('home')">Todos</x-dropdown-item>
+<x-dropdown-item href="/?{{ http_build_query(request()->except('category','page')) }}" 
+            :active="request()->routeIs('home')">Todos</x-dropdown-item>
 
 
 
@@ -25,7 +26,7 @@
             <x-dropdown-item
 
            {{-- href="/categories/{{ $c->slug }}" --}}
-                href="/?category={{ $c->slug }}"
+                href="/?category={{ $c->slug }}&{{ http_build_query(request()->except('category','page')) }}"
                 :active="request()->is('categories/'. $c->slug)">
                 {{ ucwords($c->name)}}
             

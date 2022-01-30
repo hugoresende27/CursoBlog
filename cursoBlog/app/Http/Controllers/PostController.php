@@ -12,9 +12,18 @@ class PostController extends Controller
 ///////////////////////////////////////////////////////////////////////////////////////
     public function index()
     {
+
+        // return Post::latest()->filter(
+        //     request(['search','category','author']))
+        //     ->paginate();
+
+
         //dd(request(['search']));
+
         return view('posts.index', [          //category e author para fazer apenas um query de busca
-            'posts' => Post::latest()->filter(request(['search','category']))->get(),//->with('category','author')->get()  //latest('published_at') para mostrar posts ultimo em primeiro
+            'posts' => Post::latest()->filter(
+                request(['search','category','author']))
+                ->paginate(6)->withQueryString()//->with('category','author')->get()  //latest('published_at') para mostrar posts ultimo em primeiro
                               //protected $with = ['category', 'author']; no models Post vai limitar as querys
             //'categories' => Category::all(),
             //'currentCategory' => Category::firstWhere('slug', request('category'))//passou para CategoryDropdown

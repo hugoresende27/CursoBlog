@@ -111,3 +111,23 @@ WHERE
 
 
             </x-dropdown >
+
+
+//////////////////////////////////////////////////////
+
+SELECT 
+	* 
+FROM 
+	`posts` 
+WHERE (`title` LIKE '%voluptas%' 
+	OR `body` LIKE '%voluptas%' )
+AND EXISTS (
+	SELECT 
+	* 
+	FROM 
+	   `categories` 
+	WHERE 
+	    `posts`.`category_id` = `categories`.`id` 
+	     AND `slug` = 'aliquam-et-placeat-atque-ipsa-odio-sit-ea') 
+ORDER BY 
+	`created_at` DESC

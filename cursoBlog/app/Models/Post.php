@@ -26,9 +26,9 @@ class Post extends Model
 
             //$query->when($filters['search'] ?? false, function ($query, $search){
             $query->when($filters['search'] ?? false, fn ($query, $search) => 
-              $query
-                ->where('title','like','%'.$search.'%')
-                ->orWhere('body','like','%'.$search.'%'));
+              $query->where(fn($query) => 
+                $query->where('title','like','%'.$search.'%')
+                ->orWhere('body','like','%'.$search.'%')) );
 
             $query->when($filters['category'] ?? false, fn ($query, $category) => 
             //   $query
@@ -43,7 +43,12 @@ class Post extends Model
 
            // };//POST Q DEVOLVEM OS QUE TÊM A CATEGORY QUE CORRESPONDE NA SLUG DA CATEGORY
            //SELECT * FROM `posts` WHERE EXISTS (SELECT * FROM `categories` WHERE `categories`.`id` = 'posts.category_id' and `categories`.`slug` = 'laboriosam-expedita-ipsum-quos-accusantium-qui-quo') ORDER BY `created_at` DESC
-               
+              
+           
+           $query->when($filters['author'] ?? false, fn ($query, $author) => 
+           $query
+                ->whereHas('author', fn($query) => 
+                $query->where('username', $author)));
             
     }
 

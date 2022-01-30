@@ -155,10 +155,10 @@ Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 //     ]);
 // })->name('category');
 
-Route::get('authors/{author:username}', function (User $author){
-    // dd($author);
-    return view('posts', [
-        'posts' => $author->posts,//->load(['category', 'author']) //para não fazer várias querys
-       // 'categories' => Category::all()
-    ]);
-});
+// Route::get('authors/{author:username}', function (User $author){
+//     // dd($author);
+//     return view('posts.index', [
+//         'posts' => $author->posts,//->load(['category', 'author']) //para não fazer várias querys
+//        // 'categories' => Category::all()
+//     ]);
+// });
