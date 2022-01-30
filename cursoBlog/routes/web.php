@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
@@ -19,14 +20,38 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 |
 */
 
-Route::get('/', function () {
 
-    return view('posts', [          //category e author para fazer apenas um query de busca
-        'posts' => Post::latest()->get(),//->with('category','author')->get()  //latest('published_at') para mostrar posts ultimo em primeiro
-                          //protected $with = ['category', 'author']; no models Post vai limitar as querys
-        'categories' => Category::all()
-        ]);   
-})->name('home');
+//vou substituir a route para index pelo controlador PostController
+
+//Route::get('/', function () { })->name('home');
+Route::get('/', [PostController::class, 'index'])->name('home');
+
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+//Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$post)->firstOrFail();
+
+    // return view('post', [
+    //     'post' => $post
+    // ]);
+// });
+    //dd(request('search'));
+
+    // $post =  Post::latest();//->get();
+
+    // if(request('search')){
+    //     //query com wildcars % query like de pesquisa
+    //     $post
+    //         ->where('title','like','%'.request('search').'%')
+    //         ->orWhere('body','like','%'.request('search').'%');
+    // }
+
+    // return view('posts', [          //category e author para fazer apenas um query de busca
+    //     'posts' => $post->get(),//->with('category','author')->get()  //latest('published_at') para mostrar posts ultimo em primeiro
+    //                       //protected $with = ['category', 'author']; no models Post vai limitar as querys
+    //     'categories' => Category::all()
+    //     ]);   
+
+
+
 
 //    DB::listen(function ($query){
 //        //Log::info('foo');
@@ -100,14 +125,6 @@ Route::get('/', function () {
 //    ]);
 
 
-
-
-Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$post)->firstOrFail();
-
-    return view('post', [
-        'post' => $post
-    ]);
-
     //ENCONTRAR UM POST PELO SEU $SLUG E PASSA-LO PARA A VIEW CHAMADA POST
     // //return $slug;
     // $path = __DIR__ . "/../resources/posts/{$slug}.html";
@@ -126,7 +143,7 @@ Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$po
 
     // return view('post', ['post' => $post]);
 
-});
+
 //->where('post', '[A-z_\-]+');
 
 Route::get('categories/{category:slug}', function (Category $category){
