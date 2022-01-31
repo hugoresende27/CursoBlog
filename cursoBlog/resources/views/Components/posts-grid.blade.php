@@ -4,7 +4,8 @@
 
 @if ($posts->count()>1)
     <div class="lg:grid lg:grid-cols-6">
-        @foreach ($posts->skip(1) as $p)
+        {{-- PARA SALTAR O PRIMEIRO POST, QUE ESTÁ EM post-featured-card --}}
+        @foreach ($posts->skip(1) as $p) 
             {{-- @dd($loop) --}}
             <x-post-card 
             :post="$p" 
