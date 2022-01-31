@@ -28,7 +28,7 @@ class RegisterController extends Controller
             'password'=> 'required|min:4'
         ]);
 
-        $attributes['password'] = bcrypt($attributes['password']);
+        //$attributes['password'] = bcrypt($attributes['password']);
 
         //dd('sucess validation succeed');
         //User::create($attributes);

@@ -24,16 +24,28 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 
 
 ////////    ROUTE PARA REGISTO /////////////////
-Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
+Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');//ir para registo se guest
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
 //vou substituir a route para index pelo controlador PostController
-
+////////// ROUTE INDEX HOME ////////////////////
 //Route::get('/', function () { })->name('home');
 Route::get('/', [PostController::class, 'index'])->name('home');
 
+
+////////// ROUTE POSTS ////////////////////
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
-Route::post('logout', [SessionsController::class, 'destroy']);
+
+////////// ROUTES LOGIN LOGOUT ////////////////////
+Route::get('login', [SessionsController::class, 'create'])->middleware('guest');//se guest acesso a login
+Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest');//se guest acesso a login
+Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');//se auth acesso a logout
+
+
+
+
+
+
 //Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$post)->firstOrFail();
 
     // return view('post', [
