@@ -24,18 +24,22 @@ class SessionsController extends Controller
             'password'=> 'required|min:4'
         ]);
         //attemp to authenticate e log in do user based on credencials
-        if (auth()->attempt($atts)){
+        if (! auth()->attempt($atts)){
 
-            session()->regenerate();
+            throw ValidationException::withMessages([
+                    'email' => 'Credencials not verified'
+                ]);    
+            }
+
+        session()->regenerate();
             
-            //redirect with success flash message
-            return redirect("/")->with('success','Welcome Back!');
-        }
+        //redirect with success flash message
+        return redirect("/")->with('success','Welcome Back!');
 
         // //auth failed
-        return back()
-            ->withInput()
-            ->withErrors(['password' => 'password errada']); 
+        // return back()
+        //     ->withInput()
+        //     ->withErrors(['password' => 'password errada']); 
 
         // OUTRA MANEIRA SE AUTH FAIL //////
         // throw ValidationException::withMessages([
