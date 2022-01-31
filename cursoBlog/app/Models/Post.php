@@ -11,7 +11,7 @@ class Post extends Model
 
     //guarded ou fillable para controlar adicionar posts
     //protected $guarded = ['id'];
-    protected $guarded = [];//melhor opção, array vazio, id é AUTO_INCREMENT
+    //protected $guarded = [];//melhor opção, array vazio, id é AUTO_INCREMENT
     //protected  $fillable =
 
     protected $with = ['category', 'author'];
@@ -69,6 +69,12 @@ class Post extends Model
     public function author() //laravel assume foreignKey author_id
     {
         return $this->belongsTo(User::class,'user_id');
+    }
+
+////////////////////////////////////////////////////////////////////
+    public function comments() 
+    {
+        return $this->hasMany(Comment::class);
     }
 
 

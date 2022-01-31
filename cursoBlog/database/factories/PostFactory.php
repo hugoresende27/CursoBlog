@@ -17,6 +17,7 @@ class PostFactory extends Factory
     {
         return [
             //em PostFactory tbm vai criar um user e uma categoria tudo de uma vez
+            //vai criar um user e uma categoria a cada post
             'user_id'=>User::factory(),
             'category_id'=>Category::factory(),
             'title'=> $this->faker->sentence(),

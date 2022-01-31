@@ -9,6 +9,8 @@ use App\Models\Category;
 
 class PostController extends Controller
 {
+
+    //RECOMENDADO AQUI APENAS ----> INDEX, SHOW, CREATE, STORE, EDIT, UPDATE, DESTROY
 ///////////////////////////////////////////////////////////////////////////////////////
     public function index()
     {
@@ -53,4 +55,12 @@ class PostController extends Controller
 
         // return $post->get();
 //     }
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+            public function addColumn()
+            {
+
+            }
  }

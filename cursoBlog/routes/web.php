@@ -3,6 +3,7 @@
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostCommentsController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
@@ -42,7 +43,8 @@ Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');//se auth acesso a logout
 
 
-
+////////// ROUTES COMMENTS ////// ////////////////////
+Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
 
 
