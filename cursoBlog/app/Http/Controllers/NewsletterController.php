@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Services\Newsletter;
+use Exception;
 
 class NewsletterController extends Controller
 {

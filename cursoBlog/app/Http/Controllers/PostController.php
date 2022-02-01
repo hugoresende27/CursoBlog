@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Support\Facades\Response;
 
 
 class PostController extends Controller
@@ -59,8 +60,24 @@ class PostController extends Controller
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-            public function addColumn()
-            {
+        public function create()
+        {
 
-            }
+            /// protecao admin
+            // if (auth()->guest()) {
+            //     abort(403);
+            //     //abort(Response::HTTP_FORBIDDEN);
+            // }
+            // //var_dump(auth()->user()->username);
+            // if (auth()->user()->username != 'Admin') {
+            //     abort(403);
+            //     //abort(Response::HTTP_FORBIDDEN);
+            // }
+            // if (auth()->user()?->username != 'Admin'){
+            //         abort(403);
+            // }PASSOU PARA O MIDDLEWARE AdminsOnly
+
+
+            return view ('posts.create');
+        }
  }
