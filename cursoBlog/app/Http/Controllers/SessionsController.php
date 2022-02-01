@@ -17,13 +17,13 @@ class SessionsController extends Controller
     ///////////////// FUNÇÃO STORE /////////////////////////////
     public function store()
     {
-        //validate request
+        //validate request/////////// VALIDAÇÃO //////////////////
         $atts= request()->validate([
       
             'email'=> 'required|email|exists:users,email',
             'password'=> 'required|min:4'
         ]);
-        //attemp to authenticate e log in do user based on credencials
+        //attemp to authenticate e log in do user based on credencials /////////// ACÇÃO ////////////////
         if (! auth()->attempt($atts)){
 
             throw ValidationException::withMessages([
@@ -33,7 +33,7 @@ class SessionsController extends Controller
 
         session()->regenerate();
             
-        //redirect with success flash message
+        //redirect with success flash message        ///////////// REDIRECT //////////////////
         return redirect("/")->with('success','Welcome Back!');
 
         // //auth failed

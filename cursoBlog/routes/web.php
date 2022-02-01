@@ -4,10 +4,12 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostCommentsController;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
+use App\Services\Newsletter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Translation\Dumper\YamlFileDumper;
@@ -47,37 +49,7 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
 ///////////////// ROUTES MAIL SUBSCRIBE ////////////////
-Route::get('ping', function () {
-
-
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us14'
-    ]);
-
-    //$response = $mailchimp->ping->get();
-    //$response = $mailchimp->lists->getListMembersInfo('c220c3a3f3');
-    $response = $mailchimp->lists->addListMember('c220c3a3f3', [
-        'email_address' => 'hugoresende1988@gmail.com',
-        'status' => 'subscribed'
-    ]);
-
-    
-
-	// try {
-	//     $response = $response = $mailchimp->lists->addListMember('c220c3a3f3', [
-    //             'email_address' => 'hugoresende29@gmail.com',
-    //             'status' => 'subscribed'
-    //         ]);
-	// } catch (\GuzzleHttp\Exception\RequestException $ex) {
-	//      return $ex->getResponse()->getBody()->getContents();    
-	// }
-
-    ddd($response);
-
-});
+Route::post('newsletter', NewsLetterController::class);
 
 //Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$post)->firstOrFail();
 
