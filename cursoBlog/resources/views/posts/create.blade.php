@@ -76,7 +76,20 @@
                     </label>
 
                    <select name="category" id="category">
-                       <option value="personal">Personal</option>
+
+                    @php
+
+                        $categories = \App\Models\Category::all();
+
+                    @endphp
+
+                    @foreach ($categories as $c)
+                  
+                            <option class="text-black" selected="{{$c->name}}"  value="{{$c->id}}">{{$c->name}}</option>
+                    
+                    @endforeach
+
+                       
                    </select>
 
                     @error('category')
