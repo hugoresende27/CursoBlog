@@ -1,6 +1,6 @@
 <!doctype html>
 
-<title>Laravel From Scratch Blog</title>
+<title>HR Blog @2022</title>
 
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -14,7 +14,7 @@
         scroll-behavior: smooth;
     }
 
-    
+
 
 </style>
 
@@ -30,16 +30,26 @@
             <div class="mt-8 md:mt-0 flex items-center">
 
                 @auth
-                    <span class="text-xs font-bold uppercase">
-                        Welcome back
-                        {{ auth()->user()->name }}
-                    </span>
 
-                    <form method="POST" action="/logout" class="text-xs font-semibold text-blue-500 ml-6">
-                        @csrf
-                           
-                            <button type="submit">Log Out</button>
-                    </form>
+                    <x-dropdown>
+                        <x-slot name="trigger">
+                            <button class="text-xs font-bold uppercase">
+                                Welcome back
+                                {{ auth()->user()->name }}
+                            </button>
+                        </x-slot>
+
+                        <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">New Post</x-dropdown-item>
+                        <x-dropdown-item href="/">HomePage</x-dropdown-item>
+                        <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">Log Out</x-dropdown-item>
+
+                        <form id="logout-form" method="POST" action="/logout" class="text-xs font-semibold text-blue-500 ml-6 hidden">
+                            @csrf
+
+                        </form>
+
+                    </x-dropdown>
+
                 @else
                     <a href="/register" class="text-xs font-bold uppercase">Register</a>
                     <a href="/login" class="ml-6 text-xs font-bold uppercase">Log In</a>
@@ -66,7 +76,7 @@
                     <form method="POST" action="/newsletter" class="lg:flex text-sm">
 
                         @csrf
-                        
+
                         <div class="lg:py-3 lg:px-5 flex items-center">
                             <label for="email" class="hidden lg:inline-block">
                                 <img src="/images/mailbox-icon.svg" alt="mailbox letter">
@@ -75,7 +85,7 @@
                             <div>
                                 <input id="email"
                                     name="email"
-                                    type="text" 
+                                    type="text"
                                     placeholder="Your email address"
                                     class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
 
@@ -83,7 +93,7 @@
                                     <span class="text-red-500 text-xs   ">{{ $message }}</span>
                                 @enderror
                             </div>
-                            
+
                         </div>
 
                         <button type="submit"
