@@ -68,14 +68,14 @@
 
                 </div>
                 
-                <div class="mb-6">
+                <div class="mb-6 ">
                     <label class="block mb-2 uppercase font-bold text-xs text-black"
                         for="body"
                     >
                     Category
                     </label>
 
-                   <select name="category" id="category">
+                   <select name="category" id="category" class="text-black">
 
                     @php
 
@@ -85,7 +85,9 @@
 
                     @foreach ($categories as $c)
                   
-                            <option class="text-black" selected="{{$c->name}}"  value="{{$c->id}}">{{$c->name}}</option>
+                            <option  value="{{$c->id}}">
+                                {{$c->name}}
+                            </option>
                     
                     @endforeach
 
