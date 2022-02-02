@@ -1,81 +1,31 @@
 <x-layout>
-    <div  class="max-w-sm mx-auto">
+    <div  class="max-w-md mx-auto">
     <section class="px-6 py-8">
+
+        <h1 class="text-lg font-bold mb-4 text-center">
+            Publish New Post
+        </h1>
+
         <x-panel>
             
-            <form action="/admin/posts" method="POST">
+            <form action="/admin/posts" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-black"
-                        for="title"
-                    >
-                        Title
-                    </label>
+               <x-form.input name="title" />
+               <x-form.input name="slug" />
+               <x-form.input name="image" type="file"/>
 
-                    <input class="text-black border border-gray-400 p-2 w-full"
-                        type="text"
-                        name="title"
-                        id="title"
-                        value="{{ old('title')}}"
-                        required
-                    >
 
-                    @error('title')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
+               <x-form.textarea txt="excerpt" />
+               <x-form.textarea txt="body" />
 
-                </div>
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-black"
-                        for="excerpt"
-                    >
-                    excerpt
-                    </label>
+            
+            
+                <x-form.field>
+                    <x-form.label name="category" />
+               
 
-                    <textarea class="text-black border border-gray-400 p-2 w-full"
-                        type="text"
-                        name="excerpt"
-                        id="excerpt"
-                        value="{{ old('excerpt')}}"
-                        required
-                    ></textarea>
-
-                    @error('excerpt')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-
-                </div>
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-black"
-                        for="body"
-                    >
-                    body
-                    </label>
-
-                    <textarea class="text-black border border-gray-400 p-2 w-full h-32"
-                        type="text"
-                        name="body"
-                        id="body"
-                        
-                        value="{{ old('body')}}"
-                        required
-                    ></textarea>
-
-                    @error('body')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-
-                </div>
-                
-                <div class="mb-6 ">
-                    <label class="block mb-2 uppercase font-bold text-xs text-black"
-                        for="body"
-                    >
-                    Category
-                    </label>
-
-                   <select name="category" id="category" class="text-black">
+                   <select name="category_id" id="category" class="text-black">
 
                     @php
 
@@ -85,8 +35,8 @@
 
                     @foreach ($categories as $c)
                   
-                            <option  value="{{$c->id}}">
-                                {{$c->name}}
+                            <option  value="{{$c->id}}" {{old('category_id') == $c->id ? 'selected' : ' '}}>
+                                {{ucwords( $c->name)}}
                             </option>
                     
                     @endforeach
@@ -94,18 +44,17 @@
                        
                    </select>
 
-                    @error('category')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-
-                </div>
+                   <x-form.error name="category" />
+                </x-form.field>
 
 
                 <div class="text-center">
-                    <x-submit-button >Publish</x-submit-button>
+                    <x-submit-button >
+                        Publish
+                    </x-submit-button>
                 </div>
 
-            </div>
+           
             </form>
         
         </x-panel>

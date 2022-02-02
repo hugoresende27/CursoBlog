@@ -42,6 +42,7 @@ Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 ////////// ROUTE ADMINISTRATION SECTION ////////////////////
 Route::get('/admin/posts/create', [PostController::class, 'create'])->middleware('admin');
+Route::post('/admin/posts/', [PostController::class, 'store'])->middleware('admin');
 
 ////////// ROUTES LOGIN LOGOUT ////////////////////
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');//se guest acesso a login

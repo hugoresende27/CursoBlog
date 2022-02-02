@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Facades\Response;
-
+use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class PostController extends Controller
 {
@@ -79,5 +81,35 @@ class PostController extends Controller
 
 
             return view ('posts.create');
+        }
+
+
+        function store()
+        {
+            //para ir vendo q estou a submeter
+            //ddd(request()->__get('thumbnail'));
+            //ddd(request()->all());
+            //ddd(request()->file('xxx'));
+            //$path = request()->file('xxx')->store('thumbnails');
+            //return 'Done'.$path;
+
+            //validar request 
+            $attributes=request()->validate([
+                'title'=> 'required',
+                'xxx'=>'required|image',
+                'slug'=>['required', Rule::unique('posts','slug')],//verifica se slug na BD
+                'excerpt'=>'required',
+                'body'=>'required',
+                'category_id'=>['required', Rule::exists('categories','id')]//verificar de category_id na BD
+            ]);
+
+            //se request for valido
+            $attributes['user_id'] = auth()->id();
+            $attributes['xxx'] = request()->file('xxx')->store('imgsposts');
+            //ddd($attributes);
+            Post::create($attributes);
+
+            //depois redirect
+            return redirect('/');
         }
  }
