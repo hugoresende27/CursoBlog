@@ -7,9 +7,10 @@
     <textarea class="text-black border border-gray-400 p-2 w-full"
         type="text"
         name="{{$txt}}"
-        id="{{$txt}}" 
+        id="{{$txt}}"
         required
-    > {{ old($txt) }}</textarea>
+        {{$attributes}}
+    > {{ $slot ?? old($txt) }}</textarea>
 
     <x-form.error name="{{ $txt}}" />
 

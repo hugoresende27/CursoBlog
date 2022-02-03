@@ -32,11 +32,11 @@ class PostController extends Controller
                               //protected $with = ['category', 'author']; no models Post vai limitar as querys
             //'categories' => Category::all(),
             //'currentCategory' => Category::firstWhere('slug', request('category'))//passou para CategoryDropdown
-            ]);  
+            ]);
     }
 ///////////////////////////////////////////////////////////////////////////////////////
     public function show(Post $post)
-    
+
     {
         return view('posts.show', [
             'post' => $post
@@ -62,54 +62,54 @@ class PostController extends Controller
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-        public function create()
-        {
+//        public function create()
+//        {
+//
+//            /// protecao admin
+//            // if (auth()->guest()) {
+//            //     abort(403);
+//            //     //abort(Response::HTTP_FORBIDDEN);
+//            // }
+//            // //var_dump(auth()->user()->username);
+//            // if (auth()->user()->username != 'Admin') {
+//            //     abort(403);
+//            //     //abort(Response::HTTP_FORBIDDEN);
+//            // }
+//            // if (auth()->user()?->username != 'Admin'){
+//            //         abort(403);
+//            // }PASSOU PARA O MIDDLEWARE AdminsOnly
+//
+//
+//            return view ('admin.post.create');
+//        }
 
-            /// protecao admin
-            // if (auth()->guest()) {
-            //     abort(403);
-            //     //abort(Response::HTTP_FORBIDDEN);
-            // }
-            // //var_dump(auth()->user()->username);
-            // if (auth()->user()->username != 'Admin') {
-            //     abort(403);
-            //     //abort(Response::HTTP_FORBIDDEN);
-            // }
-            // if (auth()->user()?->username != 'Admin'){
-            //         abort(403);
-            // }PASSOU PARA O MIDDLEWARE AdminsOnly
 
-
-            return view ('posts.create');
-        }
-
-
-        function store()
-        {
-            //para ir vendo q estou a submeter
-            //ddd(request()->__get('thumbnail'));
-            //ddd(request()->all());
-            //ddd(request()->file('xxx'));
-            //$path = request()->file('xxx')->store('thumbnails');
-            //return 'Done'.$path;
-
-            //validar request 
-            $attributes=request()->validate([
-                'title'=> 'required',
-                'xxx'=>'required|image',
-                'slug'=>['required', Rule::unique('posts','slug')],//verifica se slug na BD
-                'excerpt'=>'required',
-                'body'=>'required',
-                'category_id'=>['required', Rule::exists('categories','id')]//verificar de category_id na BD
-            ]);
-
-            //se request for valido
-            $attributes['user_id'] = auth()->id();
-            $attributes['xxx'] = request()->file('xxx')->store('imgsposts');
-            //ddd($attributes);
-            Post::create($attributes);
-
-            //depois redirect
-            return redirect('/');
-        }
+//        function store()
+//        {
+//            //para ir vendo q estou a submeter
+//            //ddd(request()->__get('thumbnail'));
+//            //ddd(request()->all());
+//            //ddd(request()->file('xxx'));
+//            //$path = request()->file('xxx')->store('thumbnails');
+//            //return 'Done'.$path;
+//
+//            //validar request
+//            $attributes=request()->validate([
+//                'title'=> 'required',
+//                'xxx'=>'required|image',
+//                'slug'=>['required', Rule::unique('posts','slug')],//verifica se slug na BD
+//                'excerpt'=>'required',
+//                'body'=>'required',
+//                'category_id'=>['required', Rule::exists('categories','id')]//verificar de category_id na BD
+//            ]);
+//
+//            //se request for valido
+//            $attributes['user_id'] = auth()->id();
+//            $attributes['xxx'] = request()->file('xxx')->store('imgsposts');
+//            //ddd($attributes);
+//            Post::create($attributes);
+//
+//            //depois redirect
+//            return redirect('/');
+//        }
  }

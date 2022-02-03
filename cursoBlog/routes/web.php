@@ -5,7 +5,9 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\AdminPostController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
@@ -30,19 +32,27 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');//ir para registo se guest
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
+
+
 //vou substituir a route para index pelo controlador PostController
 ////////// ROUTE INDEX HOME ////////////////////
 //Route::get('/', function () { })->name('home');
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 
+
+
 ////////// ROUTE POSTS ////////////////////
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 
-////////// ROUTE ADMINISTRATION SECTION ////////////////////
-Route::get('/admin/posts/create', [PostController::class, 'create'])->middleware('admin');
-Route::post('/admin/posts/', [PostController::class, 'store'])->middleware('admin');
+
+
+
+
+
+
+
 
 ////////// ROUTES LOGIN LOGOUT ////////////////////
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');//se guest acesso a login
@@ -52,11 +62,25 @@ Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');//se auth acesso a logout
 
 
+
+
 ////////// ROUTES COMMENTS ////// ////////////////////
 Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
+
+
+
 ///////////////// ROUTES MAIL SUBSCRIBE ////////////////
 Route::post('newsletter', NewsLetterController::class);
+
+
+////////// ROUTE ADMINISTRATION SECTION ////////////////////
+Route::post('/admin/posts/', [AdminPostController::class, 'store'])->middleware('admin');
+Route::get('/admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin');
+
+Route::get('/admin/posts/', [AdminPostController::class, 'index'])->middleware('admin');
+Route::get('/admin/posts/{post:id}/edit', [AdminPostController::class, 'edit'])->middleware('admin');
+Route::patch('/admin/posts/{post:id}', [AdminPostController::class, 'update'])->middleware('admin');
 
 //Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$post)->firstOrFail();
 
@@ -79,7 +103,7 @@ Route::post('newsletter', NewsLetterController::class);
     //     'posts' => $post->get(),//->with('category','author')->get()  //latest('published_at') para mostrar posts ultimo em primeiro
     //                       //protected $with = ['category', 'author']; no models Post vai limitar as querys
     //     'categories' => Category::all()
-    //     ]);   
+    //     ]);
 
 
 
