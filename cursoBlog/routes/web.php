@@ -49,11 +49,6 @@ Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 
 
-
-
-
-
-
 ////////// ROUTES LOGIN LOGOUT ////////////////////
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');//se guest acesso a login
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');//se guest acesso a login
@@ -81,6 +76,7 @@ Route::get('/admin/posts/create', [AdminPostController::class, 'create'])->middl
 Route::get('/admin/posts/', [AdminPostController::class, 'index'])->middleware('admin');
 Route::get('/admin/posts/{post:id}/edit', [AdminPostController::class, 'edit'])->middleware('admin');
 Route::patch('/admin/posts/{post:id}', [AdminPostController::class, 'update'])->middleware('admin');
+Route::delete('/admin/posts/{post:id}', [AdminPostController::class, 'destroy'])->middleware('admin');
 
 //Route::get('/posts/{post:slug}', function(Post $post){  //Post::where('slug',$post)->firstOrFail();
 

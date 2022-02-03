@@ -48,9 +48,13 @@
                                     </td>
 
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <a href="/admin/posts/edit" class="text-blue-500 hover:text-indigo-900 whitespace-no-wrap">
-                                            Editteste
-                                        </a>
+                                      <form action="/admin/posts/{{$pt->id}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button class="text-xs text-red-500 font-bold">DELETE</button>
+                                      </form>
+                                        
                                     </td>
                                 </tr>
                             @endforeach
