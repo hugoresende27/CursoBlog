@@ -1,12 +1,12 @@
 <x-layout>
 
     <x-setting :heading="'Edit Post: ' .$p->title">
-
+<h1> {!! $p !!}</h1>
         <form action="/admin/posts/{{$p->id}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
 
-{{--            {!! $p->xxx !!}--}}
+          
             <x-form.input name="title" :value="$p->title"/>
 
 {{--            o value pode ser preenchido de 2 maneiras--}}
